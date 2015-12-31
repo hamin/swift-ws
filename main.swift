@@ -6,8 +6,6 @@ import Foundation
     import Darwin.C
 #endif
 
-let port : UInt16  = UInt16(8080)
-
 internal extension RequestHeader {
     internal var isWebSocket: Bool {
         if let connection = self.headers["Connection"], upgrade = self.headers["Upgrade"], version = self.headers["Sec-WebSocket-Version"], _ = self.headers["Sec-WebSocket-Key"]
@@ -30,14 +28,12 @@ internal extension RequestHeader {
     }
 }
 
-public class WebSocketServer: NSObject, CWServerDelegate {
+public class WebSocketServer: CWServerDelegate {
 	var socketServer: CWSocketServer?
 
-
-    override init() {
-        super.init()
-    	socketServer = CWSocketServer (port: port, socketFamily: CWSocketFamily.v4)
-    	socketServer?.delegate = self
+    init(port:Int = 8080) {
+        socketServer = CWSocketServer (port: UInt16(port), socketFamily: CWSocketFamily.v4)
+        socketServer?.delegate = self
     }
 
     public func startWS(){
