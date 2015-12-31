@@ -30,6 +30,7 @@ internal extension RequestHeader {
 
 public class WebSocketServer: CWServerDelegate {
 	var socketServer: CWSocketServer?
+    var websocketConnections: [CWServerConnection] = []
 
     init(port:Int = 8080) {
         socketServer = CWSocketServer (port: UInt16(port), socketFamily: CWSocketFamily.v4)
@@ -51,6 +52,7 @@ public class WebSocketServer: CWServerDelegate {
     }
     public func disconnected(connection: CWServerConnection){
     	print("DISCONNECTED: \(connection)")
+        // TODO need to remove object, needs CWServerConnection needs to conform to either Equatable/Hashable
     }
     public func hasData(connection: CWServerConnection){
     	print("hasData: \(connection)")
@@ -68,6 +70,7 @@ public class WebSocketServer: CWServerDelegate {
 					let hsSockData = resp.handshakeUpgradeMakeSocketData()
 					let hsSockString = hsSockData.stringValue()
     				try connection.write(hsSockString!)
+                    websocketConnections.append(connection)
     			}
     			catch {
     				print("Failed to make HandShake")
@@ -83,7 +86,10 @@ public class WebSocketServer: CWServerDelegate {
 	        let data = NSData(bytes: frameData, length: frameData.count)
 
             do {
-				try connection.writeData(data)
+				// try connection.writeData(data)
+                for con in websocketConnections {
+                    try con.writeData(data)
+                }
 			}
 			catch {
 				print("Failed to make SEND MESSAGE")
