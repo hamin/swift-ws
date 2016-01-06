@@ -167,64 +167,6 @@ public class WebSocketServer: CWServerDelegate {
     public func stopped(server: CWSocketServer){
     	print("stopped: \(server)")
     }
-
-    // private func sendFrame(data: NSData, opcode: WebSocketFrame.OpCode) -> NSMutableData {
-    //     print("************************** COME HERE *********************************")
-    //     var headerBytes = [UInt8](count: 2, repeatedValue: 0)
-    //     headerBytes[0] |= WebSocketFrame.FinMask
-    //     headerBytes[0] |= (WebSocketFrame.OpCodeMask & opcode.rawValue)
-
-    //     if data.length < 126 {
-    //         headerBytes[1] |= UInt8(data.length)
-    //     } else if UInt(data.length) <= UInt(UInt16.max) {
-    //         headerBytes[1] |= UInt8(126)
-    //         var length = UInt16(bigEndian: UnsafePointer<UInt16>(data.bytes)[0])
-    //         let nsData = NSData(bytes: &length, length: sizeof(UInt16))
-    //         var bytes = [UInt8](count: sizeof(UInt16), repeatedValue: 0)
-    //         nsData.getBytes(&bytes, length: bytes.count)
-    //         headerBytes.appendContentsOf(bytes)
-    //     } else {
-    //         headerBytes[1] |= UInt8(127)
-    //         var length = UInt64(bigEndian: UnsafePointer<UInt64>(data.bytes)[0])
-    //         let nsData = NSData(bytes: &length, length: sizeof(UInt64))
-    //         var bytes = [UInt8](count: sizeof(UInt64), repeatedValue: 0)
-    //         nsData.getBytes(&bytes, length: bytes.count)
-    //         headerBytes.appendContentsOf(bytes)
-    //     }
-
-    //     headerBytes[1] |= WebSocketFrame.MaskMask
-    //     var maskKey = [UInt8](count: 4, repeatedValue: 0)
-    //     // SecRandomCopyBytes(kSecRandomDefault, UInt(maskKey.count), &maskKey)
-    //     headerBytes.appendContentsOf(maskKey)
-
-    //     var payloadBytes = [UInt8](count: data.length, repeatedValue: 0)
-    //     data.getBytes(&payloadBytes, length: payloadBytes.count)
-
-    //     var realBytes = [UInt8](count: 9, repeatedValue: 0)
-    //     var i = 0
-    //     for index in 6..<payloadBytes.count {
-    //         realBytes[i] = payloadBytes[index] ^ maskKey[index % 4]
-    //         print("did \(i)")
-    //         i += 1
-    //     }
-    //     // write(NSData(bytes: &headerBytes, length: headerBytes.count))
-    //     // write(NSData(bytes: &payloadBytes, length: payloadBytes.count))
-    //     let frameData: NSMutableData = NSMutableData()
-    //     frameData.appendBytes(&headerBytes, length: headerBytes.count)
-    //     // frameData.appendBytes(&payloadBytes, length: payloadBytes.count)
-    //     frameData.appendBytes(&realBytes, length: realBytes.count)
-
-    //     // if let str = NSString(bytes: payloadBytes, length: payloadBytes.count, encoding: NSUTF8StringEncoding) as? String {
-    //     //     print("THIS IS STRING: \(str)")
-    //     // } else {
-    //     //     print("not a valid UTF-8 sequence")
-    //     // }
-    //     // var str = String(bytes: payloadBytes, encoding: NSUTF8StringEncoding)
-    //     print(" *** payloadBytes: \(payloadBytes)")
-    //     print(" *** realBytes: \(realBytes)")
-    //     // print("**** OK THIS IS STRING: \(str) *****")
-    //     return frameData
-    // }
 }
 
 let wsServer = WebSocketServer()
