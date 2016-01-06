@@ -15,17 +15,17 @@ import Foundation
 
 /// Simple Date struct, stores only UTC
 public struct Date {
-    
+
     /// Epoch timestamp (seconds since 1970-01-01)
     public let timestamp: Int
-    
+
     /// Simple initializer
     ///
     /// - parameter timestamp: Epoch timestamp (seconds since 1970-01-01)
     init(timestamp: Int) {
         self.timestamp = timestamp
     }
-    
+
     /// Initialize with ISO-8601 date string
     ///
     /// multiple variants for defining time zone are recognized
@@ -45,7 +45,7 @@ public struct Date {
         }
         self.timestamp = timegm(&time)
     }
-    
+
     /// Initialize with RFC-822 date string
     ///
     /// multiple variants for defining the time zone are recognized
@@ -61,7 +61,7 @@ public struct Date {
         }
         self.timestamp = mktime(&time)
     }
-    
+
     /// Return a RFC-822 date string
     public var rfc822DateString: String? {
         var output = [Int8](count: 40, repeatedValue: 0)
@@ -73,8 +73,8 @@ public struct Date {
         }
         return nil
     }
-    
-    
+
+
     /// Return a ISO-8601 date string
     public var isoDateString: String? {
         var output = [Int8](count: 40, repeatedValue: 0)

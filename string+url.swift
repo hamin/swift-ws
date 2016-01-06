@@ -16,7 +16,7 @@ public extension String {
     public func urlEncodedString() -> String {
         var result = ""
         var gen = self.unicodeScalars.generate()
-        
+
         while let c = gen.next() {
             switch c {
             case " ": // Space
@@ -75,14 +75,14 @@ public extension String {
         }
         return result
     }
-    
+
     /// URL-decode string
     ///
     /// - returns: Decoded version of the URL-Encoded string
     public func urlDecodedString() -> String {
         var result = ""
         var gen = self.unicodeScalars.generate()
-        
+
         while let c = gen.next() {
             switch c {
             case "%":

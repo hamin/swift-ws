@@ -8,25 +8,25 @@
 
 /// HTTP Request header
 public class RequestHeader {
-    
+
     /// Defined headers
     public var headers = [String:String]()
-    
+
     /// Request method
     public var method: HTTPMethod = .INVALID
-    
+
     /// HTTP version
     public var version: HTTPVersion = .Invalid
-    
+
     /// Requested url
     public var url: String! = nil
-    
+
     /// Decoded GET parameters
     public var getParameters = [String:String]()
-    
+
     /// Decoded fragment (should probably not be in a request)
     public var fragment: String = ""
-    
+
     /// Initialize with data
     ///
     /// - parameter data: HTTP request headers as one long string
@@ -38,7 +38,7 @@ public class RequestHeader {
     }
 
     // MARK: - API
-    
+
     /// RequestHeader is subscriptable
     ///
     /// - parameter index: HTTP header name to query or set or one of `HTTP_METHOD` or `HTTP_VERSION`
@@ -54,7 +54,7 @@ public class RequestHeader {
                 return self.headers[index]
             }
         }
-        
+
         set(newValue) {
             switch index {
             case "HTTP_METHOD":
@@ -80,9 +80,9 @@ public class RequestHeader {
             }
         }
     }
-    
+
     // MARK: - Parser
-    
+
     private enum HeaderParserStates {
         case Method
         case BeforeURL
@@ -92,12 +92,12 @@ public class RequestHeader {
         case Fragment
         case AfterURL
         case Version
-        
+
         case Name
         case BeforeValue
         case Value
         case ErrorState
-        
+
         case FatalErrorState
     }
 
@@ -155,7 +155,7 @@ public class RequestHeader {
                     continue
                 }
                 self.version = v
-                
+
             // actual HTTP headers
             case .Name:
                 if let name = self.parseName(c) {
@@ -172,16 +172,16 @@ public class RequestHeader {
                 currentName = nil
             case .ErrorState:
                 self.parseErrorState(c)
-            
+
             // fatal parsing error
             case .FatalErrorState:
                 return false
             }
         }
-        
+
         return true
     }
-    
+
     // MARK: first line
     private var methodTemp: String = ""
     private func parseMethod(c: Character) -> String? {
@@ -235,7 +235,7 @@ public class RequestHeader {
         }
         return nil
     }
-    
+
     private var queryStringNameTemp: String = ""
     private func parseQueryStringName(c: Character) -> String? {
         switch c {
@@ -265,7 +265,7 @@ public class RequestHeader {
         }
         return nil
     }
-    
+
     private var fragmentTemp: String = ""
     private func parseURLFragment(c: Character) -> String? {
         switch c {
@@ -316,7 +316,7 @@ public class RequestHeader {
             self.state = .FatalErrorState
         }
     }
-    
+
     private var versionTemp: String = ""
     private func parseVersion(c: Character) -> String? {
         switch c {
@@ -332,9 +332,9 @@ public class RequestHeader {
         }
         return nil
     }
-    
+
     // MARK: HTTP Headers
-    
+
     var nameTemp: String = ""
     private func parseName(c: Character) -> String? {
         switch c {
@@ -351,7 +351,7 @@ public class RequestHeader {
         }
         return nil
     }
-    
+
     private func parseBeforeValue(c: Character) {
         switch c {
         case " ", "\t":
@@ -361,7 +361,7 @@ public class RequestHeader {
             self.state = .Value
         }
     }
-    
+
     var valueTemp: String = ""
     private func parseValue(c: Character) -> String? {
         switch c {
@@ -375,7 +375,7 @@ public class RequestHeader {
         }
         return nil
     }
-    
+
     private func parseErrorState(c: Character) {
         switch c {
         case "\r\n", "\n":

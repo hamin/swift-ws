@@ -18,7 +18,7 @@ public enum HTTPMethod: String {
     case OPTIONS = "OPTIONS"
     case HEAD = "HEAD"
     case TRACE = "TRACE"
-    
+
     case INVALID
 }
 
@@ -27,7 +27,7 @@ public enum HTTPVersion: String {
     case v10 = "HTTP/1.0"
     case v11 = "HTTP/1.1"
     case v2 = "HTTP/2"
-    
+
     case Invalid
 }
 
@@ -41,7 +41,7 @@ public enum HTTPStatusCode: String {
     case NoContent = "204 no content"
     case ResetContent = "205 reset content"
     case PartialContent = "206 partial content"
-    
+
     // Redirect
     case MultipleChoices = "300 multiple choices"
     case MovedPermanently = "301 moved permanently"
@@ -50,7 +50,7 @@ public enum HTTPStatusCode: String {
     case NotModified = "304 not modified"
     case TemporaryRedirect = "307 temporary redirect"
     case PermanentRedirect = "308 permanent redirect"
-    
+
     // Error
     case BadRequest = "400 bad request"
     case Unauthorized = "401 unauthorized"
@@ -69,7 +69,7 @@ public enum HTTPStatusCode: String {
     case RequestRangeNotSatisfiable = "416 request range not satisfiable"
     case ExpectationFailed = "417 expectation failed"
     case TooManyRequests = "429 too many requests"
-    
+
     // Server Error
     case InternalServerError = "500 internal server error"
     case NotImplemented = "501 not implemented"

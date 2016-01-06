@@ -14,10 +14,10 @@ public enum SocketData: Equatable {
 
     /// encapsulates arbitrary binary data
     case Data(_: [UInt8])
-    
+
     /// encapsulates a file to save RAM
     case File(_: String)
-    
+
     /// Calculate byte size of this part
     ///
     /// - returns: byte size or 0 if unknown
@@ -44,7 +44,7 @@ public func ==(lhs: SocketData, rhs: SocketData) -> Bool {
 
 /// Hashable extension for SocketData
 extension SocketData: Hashable {
-    
+
     /// Calculate reasonable hash value for content
     ///
     /// - returns: hash value

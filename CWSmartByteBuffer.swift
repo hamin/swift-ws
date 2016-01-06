@@ -21,41 +21,41 @@ public enum CWSmartByteBufferError : ErrorType {
 // class CWSmartByteBuffer
 //==============================================================
 public class CWSmartByteBuffer {
-    
+
     let VM_INHERIT_DEFAULT: vm_inherit_t = 1
-    
+
     public enum Error: ErrorType {
         case noSpace
         case badAddress
     }
-    
+
     static let vm_page_size_m1: vm_size_t = vm_page_size - 1
     static let TruncPage = { (x: vm_size_t) -> vm_size_t in x & ~(vm_page_size_m1) }
     static let RoundPage = { (x: vm_size_t) -> vm_size_t in TruncPage(x + vm_page_size_m1) }
-    
+
     private var bufPtr: vm_address_t = 0
     private var bufSize: UInt
-    
+
     private var readPointer: vm_address_t = 0
     private var writePointer: vm_address_t = 0
-    
+
     private var bytesWritten: UInt = 0
     private var bytesRead: UInt = 0
-    
+
     //--------------------------------------------------------------
     // init
     //--------------------------------------------------------------
     public init (initialSize: UInt) {
         self.bufSize = CWSmartByteBuffer.RoundPage (initialSize)
     }
-    
+
     //--------------------------------------------------------------
     // deinit
     //--------------------------------------------------------------
     deinit {
         deallocBuffer ()
     }
-    
+
     //--------------------------------------------------------------
     // availableBytes
     //--------------------------------------------------------------
@@ -66,15 +66,15 @@ public class CWSmartByteBuffer {
             return UInt.max - bytesRead + bytesWritten
         }
     }
-    
+
     //--------------------------------------------------------------
     // freeSpace
     //--------------------------------------------------------------
     public var freeSpace: UInt {
         return bufSize - availableBytes
     }
-    
-    
+
+
     //--------------------------------------------------------------
     // reset
     //
@@ -83,11 +83,11 @@ public class CWSmartByteBuffer {
     public func reset () {
         readPointer = bufPtr
         writePointer = bufPtr
-        
+
         bytesWritten = 0
         bytesRead = 0
     }
-    
+
     //--------------------------------------------------------------
     // deallocBuffer
     //
@@ -101,30 +101,30 @@ public class CWSmartByteBuffer {
         }
         reset ();
     }
-    
+
     //--------------------------------------------------------------
     // createBuffer
     //
     // nb.  bufSize must have been rounded when this is called
     //--------------------------------------------------------------
     private func createBuffer () throws {
-        
+
         // Make sure there's space for the buffer and its mirror
         guard vm_allocate(mach_task_self_, &bufPtr, bufSize * 2, VM_FLAGS_ANYWHERE) == 0 else {
             throw Error.noSpace
         }
-        
+
         // Deallocate the top, 'mirror' half
         var mirror = bufPtr + bufSize
         guard vm_deallocate(mach_task_self_, mirror, bufSize) == 0 else {
             throw Error.badAddress
         }
-        
+
         do {
-            
+
             // Now map the mirror half onto the lower, non-mirror half.  We end up with a chunk of address space, twice as large as the buffer.  If you write anywhere in the lower half
             // the data appears in the upper half too - and vice versa.  And if you read from either half the results will be the same.
-            
+
             var cp: vm_prot_t = 0
             var mp: vm_prot_t = 0
             guard vm_remap(mach_task_self_, &mirror, bufSize, 0, 0, mach_task_self_, bufPtr, 0, &cp, &mp, VM_INHERIT_DEFAULT) == 0 else {
@@ -139,8 +139,8 @@ public class CWSmartByteBuffer {
         readPointer = bufPtr
         writePointer = bufPtr
     }
-    
-    
+
+
     //--------------------------------------------------------------
     // getWritePointer
     //
@@ -154,12 +154,12 @@ public class CWSmartByteBuffer {
     public func getWritePointer (size: UInt) throws -> UnsafeMutablePointer<UInt8>? {
         if (bufPtr == 0) {
             // First time buffer used - so create it
-            
+
             bufSize = size > bufSize ? CWSmartByteBuffer.RoundPage (size) : bufSize
             try createBuffer()
         } else if freeSpace < size {
             // The buffer isn't big enoug to return a chunk with the required size
-            
+
             if availableBytes == 0 {
                 // Buffer is currently empty, so can be resized
 
@@ -170,10 +170,10 @@ public class CWSmartByteBuffer {
                 return nil
             }
         }
-        
+
         return unsafeBitCast(writePointer, UnsafeMutablePointer<UInt8>.self)
     }
-    
+
     //--------------------------------------------------------------
     // getReadPointer
     //
@@ -184,30 +184,30 @@ public class CWSmartByteBuffer {
     public func getReadPointer ()->UnsafeMutablePointer<UInt8> {
         return unsafeBitCast(readPointer, UnsafeMutablePointer<UInt8>.self)
     }
-    
+
     //--------------------------------------------------------------
     // finalizeRead
     //--------------------------------------------------------------
     public func finalizeRead (size: UInt) {
         readPointer += size
-        
+
         if readPointer - bufPtr >= bufSize {
             readPointer -= bufSize
         }
-        
+
         bytesRead = bytesRead &+ size  // Note overflow + operator
     }
-    
+
     //--------------------------------------------------------------
     // finalizeWrite
     //--------------------------------------------------------------
     public func finalizeWrite (size: UInt) {
         writePointer += size
-        
+
         if writePointer - bufPtr >= bufSize {
             writePointer -= bufSize
         }
-        
+
         bytesWritten = bytesWritten &+ size
     }
 }
