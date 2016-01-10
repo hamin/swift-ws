@@ -6,28 +6,6 @@ import Foundation
     import Darwin.C
 #endif
 
-internal extension RequestHeader {
-    internal var isWebSocket: Bool {
-        if let connection = self.headers["Connection"], upgrade = self.headers["Upgrade"], version = self.headers["Sec-WebSocket-Version"], _ = self.headers["Sec-WebSocket-Key"]
-            where connection.lowercaseString == "upgrade" && upgrade.lowercaseString == "websocket" && version == "13" {
-                return true
-        } else {
-            return false
-        }
-    }
-
-    internal func websocketHandhsakeUpgradeReponse() -> HTTPResponse {
-    	let resp = HTTPResponse(.Ok)
-	    resp.headers.append( HTTPHeader("Upgrade", "websocket") )
-	    resp.headers.append( HTTPHeader("Connection", "Upgrade") )
-
-	    let acceptKey = self.headers["Sec-WebSocket-Key"]!
-	    let encodedKey = Base64.encodeString(bytes: SHA1.bytes("\(acceptKey)258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))
-	    resp.headers.append( HTTPHeader("Sec-WebSocket-Accept", "\(encodedKey)") )
-	    return resp
-    }
-}
-
 public class WebSocketServer: CWServerDelegate {
 	var socketServer: CWSocketServer?
     var websocketConnections: [CWServerConnection] = []
@@ -155,6 +133,22 @@ public class WebSocketServer: CWServerDelegate {
                 print("***WE HAVE Binary FRAME")
             case .Ping:
                 print("*** WE HAVE PING FRAME ***")
+
+                // let count = data.length / sizeof(UInt8)
+                // var dataArray = [UInt8](count: count, repeatedValue: 0)
+                // // copy bytes into array
+                // data.getBytes(&dataArray, length:count * sizeof(UInt8))
+
+                // let pongFrame = WebSocketFrame(opCode: .Pong, data: dataArray)
+                // let frameData = pongFrame.getData()
+                // let pongData =  NSData(bytes: frameData, length: frameData.count)
+                do {
+                    try connection.writeData(data)
+                    print("Sent Pong Message!")
+                }
+                catch {
+                    print("Failed to make SEND PONG")
+                }
             case .Pong:
                 print("*** WE HAVE PONG FRAME ***")
             case .Close:
@@ -167,13 +161,4 @@ public class WebSocketServer: CWServerDelegate {
     public func stopped(server: CWSocketServer){
     	print("stopped: \(server)")
     }
-}
-
-let wsServer = WebSocketServer()
-wsServer.startWS()
-
-
-
-while (true){
-	// print("started server")
 }
