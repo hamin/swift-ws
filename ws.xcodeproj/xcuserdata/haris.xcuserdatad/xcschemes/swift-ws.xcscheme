@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "______Target_ws"
-               BuildableName = "ws"
-               BlueprintName = "ws"
+               BlueprintIdentifier = "______Target_swiftws"
+               BuildableName = "swift-ws"
+               BlueprintName = "swift-ws"
                ReferencedContainer = "container:ws.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_ws"
-            BuildableName = "ws"
-            BlueprintName = "ws"
+            BlueprintIdentifier = "______Target_swiftws"
+            BuildableName = "swift-ws"
+            BlueprintName = "swift-ws"
             ReferencedContainer = "container:ws.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_ws"
-            BuildableName = "ws"
-            BlueprintName = "ws"
+            BlueprintIdentifier = "______Target_swiftws"
+            BuildableName = "swift-ws"
+            BlueprintName = "swift-ws"
             ReferencedContainer = "container:ws.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_ws"
-            BuildableName = "ws"
-            BlueprintName = "ws"
+            BlueprintIdentifier = "______Target_swiftws"
+            BuildableName = "swift-ws"
+            BlueprintName = "swift-ws"
             ReferencedContainer = "container:ws.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

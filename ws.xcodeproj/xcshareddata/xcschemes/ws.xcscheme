@@ -70,9 +70,51 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "______Target_ws"
-               BuildableName = "ws"
-               BlueprintName = "ws"
+               BlueprintIdentifier = "______Target_Adler"
+               BuildableName = "Adler.dylib"
+               BlueprintName = "Adler"
+               ReferencedContainer = "container:ws.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "______Target_CWSocketsServer"
+               BuildableName = "CWSocketsServer.dylib"
+               BlueprintName = "CWSocketsServer"
+               ReferencedContainer = "container:ws.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "______Target_swiftws"
+               BuildableName = "swift-ws"
+               BlueprintName = "swift-ws"
+               ReferencedContainer = "container:ws.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "______Target_TwoHundredHelpers"
+               BuildableName = "TwoHundredHelpers.dylib"
+               BlueprintName = "TwoHundredHelpers"
                ReferencedContainer = "container:ws.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

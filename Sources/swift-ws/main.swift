@@ -1,5 +1,6 @@
 import CryptoEssentials
 import SHA1
+import TwoHundredHelpers
 
 internal extension RequestHeader {
     internal var isWebSocket: Bool {

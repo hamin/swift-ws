@@ -6,7 +6,7 @@
 //  Copyright © 2015 Johannes Schriewer. All rights reserved.
 //
 import Foundation
-// import Adler32
+import Adler
 
 public enum SocketData: Equatable {
     /// encapsulates a string

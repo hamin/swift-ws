@@ -231,9 +231,6 @@ public class CWConnection {
     // dispatch source is cancelled.  Close the socket
     //--------------------------------------------------------------
     private func doReadCancel () {
-//        if --socketRefCount <= 0 {
-//            closeSocket ()
-//        }
         socketRefCount -= 1
         if socketRefCount <= 0 {
             closeSocket()
@@ -247,9 +244,6 @@ public class CWConnection {
     // dispatch source is cancelled.  Close the socket
     //--------------------------------------------------------------
     private func doWriteCancel () {
-//        if --socketRefCount <= 0 {
-//            closeSocket ()
-//        }
         socketRefCount -= 1
         if socketRefCount <= 0 {
             closeSocket()

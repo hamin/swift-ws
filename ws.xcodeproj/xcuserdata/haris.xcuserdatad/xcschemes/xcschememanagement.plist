@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>ws.xcscheme</key>
+		<key>swift-ws.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
@@ -17,12 +17,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>______Target_Adler</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>______Target_Base64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>______Target_C7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>______Target_CWSocketsServer</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -37,7 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>______Target_ws</key>
+		<key>______Target_TwoHundredHelpers</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>______Target_swiftws</key>
 		<dict>
 			<key>primary</key>
 			<true/>

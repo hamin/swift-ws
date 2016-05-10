@@ -31,7 +31,7 @@ public class RequestHeader {
     ///
     /// - parameter data: HTTP request headers as one long string
     /// - returns: nil if header data could not be parsed
-    init?(data: String) {
+    public init?(data: String) {
         if !self.parse(data: data) {
             return nil
         }
