@@ -48,13 +48,13 @@ public class HTTPResponse {
     public func setCookie(name: String, value: String, domain: String, path: String = "/", expires: Date? = nil, secure: Bool = true, httpOnly: Bool = true) {
         var value = "\(name)=\(value); Domain=\(domain); Path=\(path)"
         if expires != nil {
-            value.appendContentsOf("; Expires=\(expires!.rfc822DateString)")
+            value.append("; Expires=\(expires!.rfc822DateString)")
         }
         if secure {
-            value.appendContentsOf("; Secure")
+            value.append("; Secure")
         }
         if (httpOnly) {
-            value.appendContentsOf("; HttpOnly")
+            value.append("; HttpOnly")
         }
 
         let header = HTTPHeader("Set-Cookie", value)
@@ -70,10 +70,10 @@ public class HTTPResponse {
     public init(_ statusCode: HTTPStatusCode, body: [SocketData]? = nil, headers: [HTTPHeader]? = nil, contentType: String? = nil) {
         self.statusCode = statusCode
         if let body = body {
-            self.body.appendContentsOf(body)
+            self.body.append(contentsOf: body)
         }
         if let headers = headers {
-            self.headers.appendContentsOf(headers)
+            self.headers.append(contentsOf: headers)
         }
         if let contentType = contentType {
             self.headers.append(HTTPHeader("Content-Type", contentType))
@@ -89,18 +89,18 @@ public class HTTPResponse {
         var result = "HTTP/1.1 " + self.statusCode.rawValue + "\r\n"
         // result.appendContentsOf("X-Powered-By: TwoHundred\r\n")
         for header in self.headers {
-            result.appendContentsOf("\(header.name): \(header.value)\r\n")
+            result.append("\(header.name): \(header.value)\r\n")
         }
         if self.body.count > 0 {
             var size = 0
             for item in body {
                 size += item.calculateSize()
             }
-            result.appendContentsOf("Content-Length: \(size)\r\n")
+            result.append("Content-Length: \(size)\r\n")
         }
-        result.appendContentsOf("Connection: keep-alive\r\n")
+        result.append("Connection: keep-alive\r\n")
         let date = Date(timestamp: time(nil))
-        result.appendContentsOf("Date: \(date.rfc822DateString!)\r\n")
+        result.append("Date: \(date.rfc822DateString!)\r\n")
         result.append("\r\n")
         return .StringData(result)
     }
@@ -110,10 +110,10 @@ public class HTTPResponse {
         var result = "HTTP/1.1 101 Switching Protocols\r\n"
         // result.appendContentsOf("X-Powered-By: TwoHundred\r\n")
         for header in self.headers {
-            result.appendContentsOf("\(header.name): \(header.value)\r\n")
+            result.append("\(header.name): \(header.value)\r\n")
         }
         let date = Date(timestamp: time(nil))
-        result.appendContentsOf("Date: \(date.rfc822DateString!)\r\n")
+        result.append("Date: \(date.rfc822DateString!)\r\n")
         result.append("\r\n")
         return .StringData(result)
     }

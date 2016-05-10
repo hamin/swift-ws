@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum CWSocketServerError: ErrorType {
+public enum CWSocketServerError: ErrorProtocol {
     case CantStartListener (posixError: POSIXError)
     case CantCreateAcceptSource
     case NoDelegateToReceiveData
@@ -79,7 +79,7 @@ public class CWSocketServer {
                 {
                     if delegate != nil {
                         dispatchDelegate() {
-                            self.delegate!.stopped(self)
+                            self.delegate!.stopped(server: self)
                         }
                     }
                 }
@@ -119,8 +119,8 @@ public class CWSocketServer {
 
         listenerSocket = CWSocket (family: socketFamily, proto: CWSocketProtocol.tcp)
         do {
-            try listenerSocket.bind(port, ipAddress: nil)
-            try listenerSocket.listen(3)
+            try listenerSocket.bind(port: port, ipAddress: nil)
+            try listenerSocket.listen(backlog: 3)
 
             asyncQueue = dispatch_queue_create("serverAsyncQueue", nil)
             acceptSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, UInt (listenerSocket.descriptor), 0, asyncQueue)
@@ -144,7 +144,7 @@ public class CWSocketServer {
     func removeConnection (connection: CWServerConnection) {
         var idx = -1
 
-        for var i = 0; i < connections.count; i++ {
+        for i in 0 ..< connections.count {
             if connection === connections [i] {
                 idx = i;
                 break
@@ -152,12 +152,12 @@ public class CWSocketServer {
         }
 
         if idx >= 0 {
-            connections.removeAtIndex(idx)
+            connections.remove(at: idx)
         }
 
         if delegate != nil {
             dispatchDelegate() {
-                self.delegate!.disconnected(connection)
+                self.delegate!.disconnected(connection: connection)
             }
         }
     }
@@ -168,7 +168,7 @@ public class CWSocketServer {
         }
 
         dispatchDelegate() {
-            self.delegate!.hasData (connection)
+            self.delegate!.hasData (connection: connection)
         }
 
     }
@@ -176,16 +176,16 @@ public class CWSocketServer {
 
     private func asyncAcceptPendingConnections() {
         let numPendingConnections = dispatch_source_get_data(acceptSource);
-        for var i = 0; i < Int (numPendingConnections); i++ {
+        for _ in 0 ..< Int (numPendingConnections) {
 
             do {
                 let clientSocket = try listenerSocket.accept (nonblocking:true)
                 let connection = CWServerConnection (server: self, socket: clientSocket)
                 connections.append(connection)
-                try connection.monitor (asyncQueue)
+                try connection.monitor (queue: asyncQueue)
                 if delegate != nil {
                     dispatchDelegate() {
-                        self.delegate!.connected(connection)
+                        self.delegate!.connected(connection: connection)
                     }
                 }
             }
@@ -206,7 +206,7 @@ public class CWSocketServer {
 
         if delegate != nil {
             dispatchDelegate() {
-                self.delegate!.stopped (self)
+                self.delegate!.stopped (server: self)
             }
         }
     }

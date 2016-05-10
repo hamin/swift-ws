@@ -36,7 +36,7 @@ public class WebSocketServer: CWServerDelegate {
     	print("hasData: \(connection)")
 
     	let data: NSMutableData = NSMutableData()
-    	connection.readData(data)
+    	connection.readData(data: data)
 
     	if let datastring = NSString(data: data, encoding:NSUTF8StringEncoding),
     	   	let requestHeader = RequestHeader(data:datastring as String){
@@ -47,7 +47,7 @@ public class WebSocketServer: CWServerDelegate {
 	    			let resp = requestHeader.websocketHandhsakeUpgradeReponse()
 					let hsSockData = resp.handshakeUpgradeMakeSocketData()
 					let hsSockString = hsSockData.stringValue()
-    				try connection.write(hsSockString!)
+    				try connection.write(st: hsSockString!)
                     websocketConnections.append(connection)
     			}
     			catch {
@@ -58,7 +58,7 @@ public class WebSocketServer: CWServerDelegate {
     		}
     	} else{
             let count = data.length / sizeof(UInt8)
-            var dataArray = [UInt8](count: count, repeatedValue: 0)
+            var dataArray = [UInt8](repeating:0, count: count)
             // copy bytes into array
             data.getBytes(&dataArray, length:count * sizeof(UInt8))
 
@@ -115,13 +115,14 @@ public class WebSocketServer: CWServerDelegate {
                 }
 
 
-                let str = String.fromBytes(_textFramePayload)
-                let textFrame = WebSocketFrame(opCode: .Text, data: Array(str.utf8))
+//                let str = String.fromBytes(bytes: _textFramePayload)
+                let str = String(bytes: _textFramePayload, encoding: NSUTF8StringEncoding)
+                let textFrame = WebSocketFrame(opCode: .Text, data: Array(str!.utf8))
                 let frameData = textFrame.getData()
                 let textData = NSData(bytes: frameData, length: frameData.count)
                 do {
                     for con in websocketConnections {
-                        try con.writeData(textData)
+                        try con.writeData(data: textData)
                     }
                 }
                 catch {
@@ -143,7 +144,7 @@ public class WebSocketServer: CWServerDelegate {
                 // let frameData = pongFrame.getData()
                 // let pongData =  NSData(bytes: frameData, length: frameData.count)
                 do {
-                    try connection.writeData(data)
+                    try connection.writeData(data: data)
                     print("Sent Pong Message!")
                 }
                 catch {

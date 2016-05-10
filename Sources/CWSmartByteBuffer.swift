@@ -11,7 +11,7 @@
 
 import Foundation
 
-public enum CWSmartByteBufferError : ErrorType {
+public enum CWSmartByteBufferError : ErrorProtocol {
     case noSpace
     case badAddress
 }
@@ -24,7 +24,7 @@ public class CWSmartByteBuffer {
 
     let VM_INHERIT_DEFAULT: vm_inherit_t = 1
 
-    public enum Error: ErrorType {
+    public enum Error: ErrorProtocol {
         case noSpace
         case badAddress
     }
@@ -171,7 +171,7 @@ public class CWSmartByteBuffer {
             }
         }
 
-        return unsafeBitCast(writePointer, UnsafeMutablePointer<UInt8>.self)
+        return unsafeBitCast(writePointer, to: UnsafeMutablePointer<UInt8>.self)
     }
 
     //--------------------------------------------------------------
@@ -182,7 +182,7 @@ public class CWSmartByteBuffer {
     // the pointers
     //--------------------------------------------------------------
     public func getReadPointer ()->UnsafeMutablePointer<UInt8> {
-        return unsafeBitCast(readPointer, UnsafeMutablePointer<UInt8>.self)
+        return unsafeBitCast(readPointer, to: UnsafeMutablePointer<UInt8>.self)
     }
 
     //--------------------------------------------------------------

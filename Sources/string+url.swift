@@ -15,60 +15,60 @@ public extension String {
     /// - returns: URL-Encoded version of the string
     public func urlEncodedString() -> String {
         var result = ""
-        var gen = self.unicodeScalars.generate()
+        var gen = self.unicodeScalars.makeIterator()
 
         while let c = gen.next() {
             switch c {
             case " ": // Space
-                result.appendContentsOf("%20")
+                result.append("%20")
             case "!": // !
-                result.appendContentsOf("%21")
+                result.append("%21")
             case "\"": // "
-                result.appendContentsOf("%22")
+                result.append("%22")
             case "#": // #
-                result.appendContentsOf("%23")
+                result.append("%23")
             case "$": // $
-                result.appendContentsOf("%24")
+                result.append("%24")
             case "%": // %
-                result.appendContentsOf("%25")
+                result.append("%25")
             case "&": // &
-                result.appendContentsOf("%26")
+                result.append("%26")
             case "'": // '
-                result.appendContentsOf("%27")
+                result.append("%27")
             case "(": // (
-                result.appendContentsOf("%28")
+                result.append("%28")
             case ")": // )
-                result.appendContentsOf("%29")
+                result.append("%29")
             case "*": // *
-                result.appendContentsOf("%2A")
+                result.append("%2A")
             case "+": // +
-                result.appendContentsOf("%2B")
+                result.append("%2B")
             case ",": // ,
-                result.appendContentsOf("%2C")
+                result.append("%2C")
             case "/": // /
-                result.appendContentsOf("%2F")
+                result.append("%2F")
             case ":": // :
-                result.appendContentsOf("%3A")
+                result.append("%3A")
             case ";": // ;
-                result.appendContentsOf("%3B")
+                result.append("%3B")
             case "=": // =
-                result.appendContentsOf("%3D")
+                result.append("%3D")
             case "?": // ?
-                result.appendContentsOf("%3F")
+                result.append("%3F")
             case "@": // @
-                result.appendContentsOf("%40")
+                result.append("%40")
             case "[": // [
-                result.appendContentsOf("%5B")
+                result.append("%5B")
             case "\\": // \
-                result.appendContentsOf("%5C")
+                result.append("%5C")
             case "]": // ]
-                result.appendContentsOf("%5D")
+                result.append("%5D")
             case "{": // {
-                result.appendContentsOf("%7B")
+                result.append("%7B")
             case "|": // |
-                result.appendContentsOf("%7C")
+                result.append("%7C")
             case "}": // }
-                result.appendContentsOf("%7D")
+                result.append("%7D")
             default:
                 result.append(c)
             }
@@ -81,7 +81,7 @@ public extension String {
     /// - returns: Decoded version of the URL-Encoded string
     public func urlDecodedString() -> String {
         var result = ""
-        var gen = self.unicodeScalars.generate()
+        var gen = self.unicodeScalars.makeIterator()
 
         while let c = gen.next() {
             switch c {
@@ -92,7 +92,7 @@ public extension String {
                         if let c = UInt32("\(c1)\(c2)", radix: 16) {
                             result.append(UnicodeScalar(c))
                         } else {
-                            result.appendContentsOf("%\(c1)\(c2)")
+                            result.append("%\(c1)\(c2)")
                         }
                     }
                 }

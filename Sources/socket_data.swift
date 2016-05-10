@@ -6,7 +6,7 @@
 //  Copyright © 2015 Johannes Schriewer. All rights reserved.
 //
 import Foundation
-import Adler32
+// import Adler32
 
 public enum SocketData: Equatable {
     /// encapsulates a string
@@ -24,7 +24,7 @@ public enum SocketData: Equatable {
     func calculateSize() -> size_t {
         switch self {
         case .StringData(let string):
-            return string.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+            return string.lengthOfBytes(using: NSUTF8StringEncoding)
         case .Data(let data):
             return data.count
         case .File(let filename):

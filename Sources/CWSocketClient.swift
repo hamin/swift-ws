@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum CWSocketClientError: ErrorType {
+public enum CWSocketClientError: ErrorProtocol {
     case CantConnect (posixError: POSIXError)
     case NoDelegateToReceiveData
 
@@ -66,7 +66,7 @@ public class CWSocketClient {
                 } catch {
                     if delegate != nil {
                         dispatchDelegate() {
-                            self.delegate!.disconnected(self)
+                            self.delegate!.disconnected(client: self)
                         }
                     }
 
@@ -84,14 +84,14 @@ public class CWSocketClient {
 
         let socket = CWSocket (family: socketFamily, proto: CWSocketProtocol.tcp)
         do {
-            try socket.connect(port, ipAddress: host, nonblocking: true)
+            try socket.connect(port: port, ipAddress: host, nonblocking: true)
             asyncQueue = dispatch_queue_create("clientAsyncQueue", nil)
             connection = CWClientConnection (client: self, socket: socket)
-            try connection.monitor(asyncQueue)
+            try connection.monitor(queue: asyncQueue)
 
             if delegate != nil {
                 dispatchDelegate () {
-                    self.delegate!.connected(self)
+                    self.delegate!.connected(client: self)
                 }
             }
         }
@@ -125,7 +125,7 @@ public class CWSocketClient {
         }
 
         dispatchDelegate() {
-            self.delegate!.hasData (self)
+            self.delegate!.hasData (client: self)
         }
 
     }
@@ -136,7 +136,7 @@ public class CWSocketClient {
 
         if (delegate != nil) {
             dispatchDelegate() {
-                self.delegate!.disconnected (self)
+                self.delegate!.disconnected (client: self)
             }
         }
     }

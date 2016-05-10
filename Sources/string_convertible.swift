@@ -8,7 +8,7 @@
 import Foundation
 
 extension UInt16 {
-    func hexString(padded padded:Bool = true) -> String {
+    func hexString(padded:Bool = true) -> String {
         let dict:[Character] = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
         var result = ""
         var somethingWritten = false
@@ -28,7 +28,7 @@ extension UInt16 {
 }
 
 extension UInt8 {
-    func hexString(padded padded:Bool = true) -> String {
+    func hexString(padded:Bool = true) -> String {
         let dict:[Character] = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
         var result = ""
         var somethingWritten = false

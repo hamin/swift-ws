@@ -20,7 +20,7 @@ import Foundation
 // Note that the actual integer values in Darwin are different
 // from everyone else's
 //--------------------------------------------------------------
-@objc enum GAIError: CInt, ErrorType {
+@objc enum GAIError: CInt, ErrorProtocol {
     case EAI_AGAIN          // 2
     case EAI_BADFLAGS       // 3
     case EAI_BADHINTS       // 12
@@ -34,7 +34,8 @@ import Foundation
     case EAI_SOCKTYPE       // 10
 
     var description: String {
-        let rv = String.fromCString(gai_strerror(self.rawValue))
+        let rv = String(validatingUTF8: gai_strerror(self.rawValue))
+        
         return rv == nil ? String (self.rawValue) : rv!
     }
 }
@@ -89,7 +90,7 @@ public enum CWSocketProtocol {
 //--------------------------------------------------------------
 public extension POSIXError {
     var description: String {
-        let rv = String.fromCString(strerror(self.rawValue))
+        let rv = String(validatingUTF8: strerror(self.rawValue))
 
         return rv == nil ? String (self.rawValue) : rv!
     }
@@ -168,7 +169,7 @@ final public class CWSocket {
 
         // Close the cached sock addr
         if let sa = sa {
-            CWSocket.freeSockAddr(sa)
+            CWSocket.freeSockAddr(addr: sa)
             self.sa = nil
         }
     }
@@ -195,16 +196,16 @@ final public class CWSocket {
      *--------------------------------------------------------*/
     func remoteIP () throws ->String {
         if let sa = sa {
-            var hostBuffer = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
-            var servBuffer = [CChar](count: Int(NI_MAXSERV), repeatedValue: 0)
+            var hostBuffer = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+            var servBuffer = [CChar](repeating: 0, count: Int(NI_MAXSERV))
 
-            let rv = getnameinfo(sa, socklen_t (sa.memory.sa_len), &hostBuffer, socklen_t (NI_MAXHOST), &servBuffer, socklen_t (NI_MAXSERV), NI_NUMERICHOST | NI_NUMERICSERV)
+            let rv = getnameinfo(sa, socklen_t (sa.pointee.sa_len), &hostBuffer, socklen_t (NI_MAXHOST), &servBuffer, socklen_t (NI_MAXSERV), NI_NUMERICHOST | NI_NUMERICSERV)
 
             if rv != 0 {
                 throw GAIError (rawValue: rv)!
             }
 
-            return String.fromCString(hostBuffer)!
+            return String(validatingUTF8: hostBuffer)!
         } else {
             throw GAIError (rawValue: EAI_NONAME)!
         }
@@ -234,9 +235,9 @@ final public class CWSocket {
             throw POSIXError (rawValue: errno)!
         }
 
-        sa = try createSockAddrIn (port, ipAddress: ipAddress)
-        guard Foundation.bind(_descriptor, sa!, socklen_t (sa!.memory.sa_len)) == 0 else {
-            CWSocket.freeSockAddr(sa!)
+        sa = try createSockAddrIn (port: port, ipAddress: ipAddress)
+        guard Foundation.bind(_descriptor, sa!, socklen_t (sa!.pointee.sa_len)) == 0 else {
+            CWSocket.freeSockAddr(addr: sa!)
             sa = nil
             throw POSIXError (rawValue: errno)!
         }
@@ -255,9 +256,9 @@ final public class CWSocket {
      | connect.
      *--------------------------------------------------------*/
     public func connect (port: in_port_t, ipAddress: String, nonblocking: Bool) throws {
-        sa = try createSockAddrIn (port, ipAddress: ipAddress)
-        guard Foundation.connect (descriptor, sa!, socklen_t (sa!.memory.sa_len)) == 0 else {
-            CWSocket.freeSockAddr(sa!)
+        sa = try createSockAddrIn (port: port, ipAddress: ipAddress)
+        guard Foundation.connect (descriptor, sa!, socklen_t (sa!.pointee.sa_len)) == 0 else {
+            CWSocket.freeSockAddr(addr: sa!)
             sa = nil
             let e = errno
             print (e)
@@ -275,9 +276,9 @@ final public class CWSocket {
    /*---------------------------------------------------------
     | accept
     *--------------------------------------------------------*/
-    public func accept (nonblocking nonblocking: Bool) throws ->CWSocket {
+    public func accept (nonblocking: Bool) throws ->CWSocket {
         var sl: socklen_t = socklen_t (SOCK_MAXADDRLEN)
-        let addr = CWSocket.createSockAddr (Int (SOCK_MAXADDRLEN))
+        let addr = CWSocket.createSockAddr (len: Int (SOCK_MAXADDRLEN))
 
         let clientSocket = Foundation.accept(descriptor, addr, &sl)
         guard clientSocket > 0 else {
@@ -290,7 +291,7 @@ final public class CWSocket {
             }
         }
 
-        let family: CWSocketFamily = addr.memory.sa_family == sa_family_t (AF_INET) ? CWSocketFamily.v4 : CWSocketFamily.v6
+        let family: CWSocketFamily = addr.pointee.sa_family == sa_family_t (AF_INET) ? CWSocketFamily.v4 : CWSocketFamily.v6
         let rv = try CWSocket (descriptor: clientSocket, family: family)
         rv.sa = addr
         return rv
@@ -327,15 +328,15 @@ final public class CWSocket {
     *--------------------------------------------------------*/
     private func createSockAddrIn (port: in_port_t, ipAddress: String?) throws ->UnsafeMutablePointer<sockaddr> {
 
-        var gaiResult = UnsafeMutablePointer<addrinfo> ()
+        var gaiResult:UnsafeMutablePointer<addrinfo>? =  nil
 
         let portBuffer : [CChar]?
-        let p: UnsafePointer<Int8>
+        var p:UnsafePointer<Int8>? = nil
 
         // Create a buffer containing a string reprentation of the port
         if port != 0 {
             let ptst = String (port)
-            portBuffer = ptst.cStringUsingEncoding(NSASCIIStringEncoding)
+            portBuffer = ptst.cString(using: NSASCIIStringEncoding)
             p = UnsafePointer<Int8>(portBuffer!)
         } else {
             p = nil
@@ -363,9 +364,9 @@ final public class CWSocket {
             throw GAIError (rawValue: rv)!
         }
 
-        let l = Int (gaiResult.memory.ai_addr.memory.sa_len)
-        let r = CWSocket.createSockAddr(l)
-        memcpy (r, gaiResult.memory.ai_addr, l)
+        let l = Int ((gaiResult?.pointee.ai_addr.pointee.sa_len)!)
+        let r = CWSocket.createSockAddr(len: l)
+        memcpy(r, gaiResult?.pointee.ai_addr, l)
 
 
         return r
@@ -376,9 +377,9 @@ final public class CWSocket {
     | createSockAddr
     *--------------------------------------------------------*/
    private static func createSockAddr (len: Int)->UnsafeMutablePointer<sockaddr> {
-        let buffer = UnsafeMutablePointer<Void>.alloc(len)
+        let buffer = UnsafeMutablePointer<Void>.init(allocatingCapacity: len)
         let rv = UnsafeMutablePointer<sockaddr>(buffer)
-        rv.memory.sa_len = __uint8_t (len)
+        rv.pointee.sa_len = __uint8_t (len)
         return rv
     }
 
@@ -387,7 +388,7 @@ final public class CWSocket {
     *--------------------------------------------------------*/
     private static func freeSockAddr (addr: UnsafeMutablePointer<sockaddr>) {
         let buffer = UnsafeMutablePointer<Void> (addr)
-        buffer.dealloc(Int (addr.memory.sa_len))
+        buffer.deallocateCapacity(Int (addr.pointee.sa_len))
     }
 
 

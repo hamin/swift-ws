@@ -11,7 +11,7 @@ import Foundation
 //--------------------------------------------------------------
 // CWConnectionError
 //--------------------------------------------------------------
-public enum CWConnectionError: ErrorType {
+public enum CWConnectionError: ErrorProtocol {
     case CantCreateDispatchSource
     case CantEncodeStringToUTF8
     case BufferTooSmall
@@ -108,7 +108,7 @@ public class CWConnection {
                 // available.
 
                 var space = READ_CHUNK_SIZE
-                var buf = try readBuffer.getWritePointer (READ_CHUNK_SIZE)
+                var buf = try readBuffer.getWritePointer (size: READ_CHUNK_SIZE)
 
                 if buf == nil {
                     semWaitFor = READ_CHUNK_SIZE
@@ -117,21 +117,21 @@ public class CWConnection {
                     if space > READ_CHUNK_SIZE {
                         space = READ_CHUNK_SIZE
                     }
-                    buf = try readBuffer.getWritePointer(space)
+                    buf = try readBuffer.getWritePointer(size: space)
 
                     if buf == nil {
                         break
                     }
                 }
 
-                let bytesRead = try socket.read (buf!, len:Int (space))
+                let bytesRead = try socket.read (buffer: buf!, len:Int (space))
                 print ("Read ", bytesRead, " bytes")
 
                 if bytesRead == 0 {
                     break
                 }
 
-                readBuffer.finalizeWrite(UInt (bytesRead))
+                readBuffer.finalizeWrite(size: UInt (bytesRead))
                 totalBytesReceived += bytesRead
                 try hasData ()
 
@@ -165,14 +165,14 @@ public class CWConnection {
                     bytesToWrite = WRITE_CHUNK_SIZE
                 }
 
-                let written = try socket.write(p, len: Int (bytesToWrite))
+                let written = try socket.write(buffer: p, len: Int (bytesToWrite))
                 print ("Written ", written, " bytes")
 
                 if (written == 0) {
                     break
                 }
                 p += written
-                writeBuffer.finalizeRead(UInt (written))
+                writeBuffer.finalizeRead(size: UInt (written))
                 l -= UInt (written)
                 finished = l == 0
 
@@ -231,8 +231,12 @@ public class CWConnection {
     // dispatch source is cancelled.  Close the socket
     //--------------------------------------------------------------
     private func doReadCancel () {
-        if --socketRefCount <= 0 {
-            closeSocket ()
+//        if --socketRefCount <= 0 {
+//            closeSocket ()
+//        }
+        socketRefCount -= 1
+        if socketRefCount <= 0 {
+            closeSocket()
         }
     }
 
@@ -243,8 +247,12 @@ public class CWConnection {
     // dispatch source is cancelled.  Close the socket
     //--------------------------------------------------------------
     private func doWriteCancel () {
-        if --socketRefCount <= 0 {
-            closeSocket ()
+//        if --socketRefCount <= 0 {
+//            closeSocket ()
+//        }
+        socketRefCount -= 1
+        if socketRefCount <= 0 {
+            closeSocket()
         }
     }
 
@@ -354,8 +362,8 @@ public class CWConnection {
 
         if len > 0 {
             let p = readBuffer.getReadPointer()
-            data.appendBytes(p, length: Int (len))
-            readBuffer.finalizeRead(len)
+            data.append(p, length: Int (len))
+            readBuffer.finalizeRead(size: len)
             let dl = readBuffer.freeSpace
             if semWaitFor > 0 && dl >= semWaitFor {
                 semWaitFor = 0
@@ -376,12 +384,12 @@ public class CWConnection {
 
         // Stuff the data in the write buffer
         let l = UInt (data.length)
-        guard let p = try writeBuffer.getWritePointer(l) else {
+        guard let p = try writeBuffer.getWritePointer(size: l) else {
             throw CWConnectionError.BufferTooSmall
         }
 
         memcpy (p, data.bytes, Int (l))
-        writeBuffer.finalizeWrite (l)
+        writeBuffer.finalizeWrite (size: l)
 
         // Resume the write source so that the data gets written
         if asyncQueue != nil {
@@ -397,8 +405,8 @@ public class CWConnection {
     // Handy function to write a string
     //--------------------------------------------------------------
     public func write (st: String) throws {
-        if let data = st.dataUsingEncoding(NSUTF8StringEncoding) {
-            try writeData (data)
+        if let data = st.data(using: NSUTF8StringEncoding) {
+            try writeData (data: data)
         } else {
             throw CWConnectionError.CantEncodeStringToUTF8
         }
@@ -428,14 +436,14 @@ final public class CWServerConnection: CWConnection {
         super.closeSocket()
 
         // Remove ourself from the server's list of connections
-        server.removeConnection(self)
+        server.removeConnection(connection: self)
     }
 
     //--------------------------------------------------------------
     // hasData
     //--------------------------------------------------------------
     override private func hasData() throws {
-        try server.hasDataOnConnection (self);
+        try server.hasDataOnConnection (connection: self);
     }
 }
 

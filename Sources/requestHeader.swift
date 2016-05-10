@@ -32,7 +32,7 @@ public class RequestHeader {
     /// - parameter data: HTTP request headers as one long string
     /// - returns: nil if header data could not be parsed
     init?(data: String) {
-        if !self.parse(data) {
+        if !self.parse(data: data) {
             return nil
         }
     }
@@ -105,9 +105,9 @@ public class RequestHeader {
     private func parse(data: String) -> Bool {
         var generator: String.CharacterView.Generator
         if !data.hasSuffix("\r\n") {
-            generator = "\(data)\r\n".characters.generate()
+            generator = "\(data)\r\n".characters.makeIterator()
         } else {
-            generator = data.characters.generate()
+            generator = data.characters.makeIterator()
         }
 
         self.state = .Method
@@ -120,37 +120,37 @@ public class RequestHeader {
             switch self.state {
             // first request line
             case .Method:
-                guard let method = self.parseMethod(c),
+                guard let method = self.parseMethod(c: c),
                       let m = HTTPMethod(rawValue: method) else {
                     continue
                 }
                 self.method = m
             case .BeforeURL:
-                self.parseBeforeURL(c)
+                self.parseBeforeURL(c: c)
             case .URL:
-                if let url = self.parseURL(c) {
+                if let url = self.parseURL(c: c) {
                     self.url = url
                     // the url will be canonized after parsing the complete headers as we need to add the host part
                 }
             case .QueryStringName:
-                if let name = self.parseQueryStringName(c) {
+                if let name = self.parseQueryStringName(c: c) {
                     currentName = name.urlDecodedString()
                 }
             case .QueryStringValue:
-                guard let value = self.parseQueryStringValue(c),
+                guard let value = self.parseQueryStringValue(c: c),
                       let name = currentName else {
                     continue
                 }
                 self.getParameters[name] = value.urlDecodedString()
                 currentName = nil
             case .Fragment:
-                if let fragment = self.parseURLFragment(c) {
+                if let fragment = self.parseURLFragment(c: c) {
                     self.fragment = fragment
                 }
             case .AfterURL:
-                self.parseAfterURL(c)
+                self.parseAfterURL(c: c)
             case .Version:
-                guard let version = self.parseVersion(c),
+                guard let version = self.parseVersion(c: c),
                       let v = HTTPVersion(rawValue: version) else {
                     continue
                 }
@@ -158,20 +158,20 @@ public class RequestHeader {
 
             // actual HTTP headers
             case .Name:
-                if let name = self.parseName(c) {
+                if let name = self.parseName(c: c) {
                     currentName = name
                 }
             case .BeforeValue:
-                self.parseBeforeValue(c)
+                self.parseBeforeValue(c: c)
             case .Value:
-                guard let value = self.parseValue(c),
+                guard let value = self.parseValue(c: c),
                       let name = currentName else {
                     continue
                 }
                 self.headers[name] = value
                 currentName = nil
             case .ErrorState:
-                self.parseErrorState(c)
+                self.parseErrorState(c: c)
 
             // fatal parsing error
             case .FatalErrorState:
@@ -189,7 +189,7 @@ public class RequestHeader {
         case "A"..."Z":
             self.methodTemp.append(c)
         case "a"..."z":
-            self.methodTemp.appendContentsOf("\(c)".lowercaseString)
+            self.methodTemp.append("\(c)".lowercased())
         case " ", "\t":
             self.state = .BeforeURL
             let result = methodTemp

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "258F552A19ED569CCAD522374C2C24A3D6853B70",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "258F552A19ED569CCAD522374C2C24A3D6853B70" : 0,
+    "4A88C7F5F6EA13C3C2A03CD1950D7F655F1E4F26" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F050FC12-7704-4F3B-9596-48E207925684",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "258F552A19ED569CCAD522374C2C24A3D6853B70" : "alt-ws\/",
+    "4A88C7F5F6EA13C3C2A03CD1950D7F655F1E4F26" : "alt-ws\/Packages\/SHA1-0.7.0\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ws",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ws.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:hamin\/swift-ws.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "258F552A19ED569CCAD522374C2C24A3D6853B70"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CryptoKitten\/SHA1.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4A88C7F5F6EA13C3C2A03CD1950D7F655F1E4F26"
+    }
+  ]
+}
