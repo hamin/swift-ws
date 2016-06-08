@@ -11,6 +11,12 @@
 
 import Foundation
 
+#if os(Linux)
+    import Glibc
+#else
+    import Darwin
+#endif
+
 public enum CWSmartByteBufferError : ErrorProtocol {
     case noSpace
     case badAddress

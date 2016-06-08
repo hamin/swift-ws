@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Dispatch
 
 public enum CWSocketClientError: ErrorProtocol {
     case CantConnect (posixError: POSIXError)

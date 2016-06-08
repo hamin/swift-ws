@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "______Target_swiftws"
+               BlueprintIdentifier = "______Target_swift_ws"
                BuildableName = "swift-ws"
                BlueprintName = "swift-ws"
                ReferencedContainer = "container:ws.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_swiftws"
+            BlueprintIdentifier = "______Target_swift_ws"
             BuildableName = "swift-ws"
             BlueprintName = "swift-ws"
             ReferencedContainer = "container:ws.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_swiftws"
+            BlueprintIdentifier = "______Target_swift_ws"
             BuildableName = "swift-ws"
             BlueprintName = "swift-ws"
             ReferencedContainer = "container:ws.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "______Target_swiftws"
+            BlueprintIdentifier = "______Target_swift_ws"
             BuildableName = "swift-ws"
             BlueprintName = "swift-ws"
             ReferencedContainer = "container:ws.xcodeproj">

@@ -7,6 +7,7 @@
 //////////////////////////////////////////////////////////////////
 
 import Foundation
+import Dispatch
 
 //--------------------------------------------------------------
 // CWConnectionError
@@ -49,7 +50,7 @@ public class CWConnection {
     // It gets released by 'ReadData' when the consuer thread frees up space in th
     // buffer.
 
-    private lazy var semaphore = dispatch_semaphore_create (0)
+    private lazy var semaphore = dispatch_semaphore_create(0)!
     private var semWaitFor: UInt = 0
 
 

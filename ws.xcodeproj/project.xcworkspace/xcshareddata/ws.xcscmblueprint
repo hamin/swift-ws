@@ -5,12 +5,14 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "258F552A19ED569CCAD522374C2C24A3D6853B70" : 0,
-    "4A88C7F5F6EA13C3C2A03CD1950D7F655F1E4F26" : 0
+    "AB3B39DF79E140C049FAA89F0028F2088162E212" : 0,
+    "9348C08FA6E530D0AF68AD65DF11B8E209FEE984" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E57F49AA-6BED-4A27-A830-9FE03391D323",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6637584E-8634-45C5-8F5A-8A2A782C81E4",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "258F552A19ED569CCAD522374C2C24A3D6853B70" : "alt-ws\/",
-    "4A88C7F5F6EA13C3C2A03CD1950D7F655F1E4F26" : "alt-ws\/Packages\/SHA1-0.7.0\/"
+    "AB3B39DF79E140C049FAA89F0028F2088162E212" : "alt-ws\/Packages\/CryptoEssentials-0.7.3\/",
+    "9348C08FA6E530D0AF68AD65DF11B8E209FEE984" : "alt-ws\/Packages\/Base64-0.7.0\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "ws",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -22,9 +24,14 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "258F552A19ED569CCAD522374C2C24A3D6853B70"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CryptoKitten\/SHA1.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Zewo\/Base64.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4A88C7F5F6EA13C3C2A03CD1950D7F655F1E4F26"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9348C08FA6E530D0AF68AD65DF11B8E209FEE984"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CryptoKitten\/CryptoEssentials.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "AB3B39DF79E140C049FAA89F0028F2088162E212"
     }
   ]
 }
