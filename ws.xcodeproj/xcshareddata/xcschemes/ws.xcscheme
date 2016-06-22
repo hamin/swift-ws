@@ -68,15 +68,6 @@
       <BuildActionEntry buildForTesting = "YES" buildForRunning = "YES" buildForProfiling = "YES" buildForArchiving = "YES" buildForAnalyzing = "YES">
         <BuildableReference
           BuildableIdentifier = "primary"
-          BlueprintIdentifier = "______Target_CWSocketsServer"
-          BuildableName = "CWSocketsServer.framework"
-          BlueprintName = "CWSocketsServer"
-          ReferencedContainer = "container:ws.xcodeproj">
-        </BuildableReference>
-      </BuildActionEntry>
-      <BuildActionEntry buildForTesting = "YES" buildForRunning = "YES" buildForProfiling = "YES" buildForArchiving = "YES" buildForAnalyzing = "YES">
-        <BuildableReference
-          BuildableIdentifier = "primary"
           BlueprintIdentifier = "______Target_swift_ws"
           BuildableName = "swift-ws"
           BlueprintName = "swift-ws"

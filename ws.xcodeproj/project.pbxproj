@@ -17,7 +17,7 @@
             productRefGroup = ____Products_;
             projectDirPath = '';
             projectRoot = '';
-            targets = (______Target_C7, ______Target_Base64, ______Target_CryptoEssentials, ______Target_SHA1, ______Target_SwiftSockets, ______Target_SwiftyEchoDaemon, ______Target_Adler, ______Target_CWSocketsServer, ______Target_swift_ws, ______Target_TwoHundredHelpers);
+            targets = (______Target_C7, ______Target_Base64, ______Target_CryptoEssentials, ______Target_SHA1, ______Target_SwiftSockets, ______Target_SwiftyEchoDaemon, ______Target_Adler, ______Target_swift_ws, ______Target_TwoHundredHelpers);
         };
         '__PBXFileRef_Package.swift' = {
             isa = PBXFileReference;
@@ -993,168 +993,53 @@
             isa = PBXTargetDependency;
             target = ______Target_Adler;
         };
-        __PBXFileRef_CWSocketsServer_Info.plist = {
-            isa = PBXFileReference;
-            lastKnownFileType = text.plist.xml;
-            name = 'CWSocketsServer_Info.plist';
-            path = 'ws.xcodeproj/CWSocketsServer_Info.plist';
-            sourceTree = SOURCE_ROOT;
-        };
-        _______Group_CWSocketsServer = {
-            isa = PBXGroup;
-            name = CWSocketsServer;
-            path = 'Sources/CWSocketsServer';
-            sourceTree = '<group>';
-            children = ('__PBXFileRef_Sources/CWSocketsServer/ByteBuffer.swift', '__PBXFileRef_Sources/CWSocketsServer/CWConnection.swift', '__PBXFileRef_Sources/CWSocketsServer/CWSmartByteBuffer.swift', '__PBXFileRef_Sources/CWSocketsServer/CWSocket.swift', '__PBXFileRef_Sources/CWSocketsServer/CWSocketClient.swift', '__PBXFileRef_Sources/CWSocketsServer/CWSocketServer.swift', '__PBXFileRef_Sources/CWSocketsServer/POSIXError.swift', __PBXFileRef_CWSocketsServer_Info.plist);
-        };
-        '__PBXFileRef_Sources/CWSocketsServer/ByteBuffer.swift' = {
-            isa = PBXFileReference;
-            lastKnownFileType = sourcecode.swift;
-            name = 'ByteBuffer.swift';
-            sourceTree = '<group>';
-        };
-        '__PBXFileRef_Sources/CWSocketsServer/CWConnection.swift' = {
-            isa = PBXFileReference;
-            lastKnownFileType = sourcecode.swift;
-            name = 'CWConnection.swift';
-            sourceTree = '<group>';
-        };
-        '__PBXFileRef_Sources/CWSocketsServer/CWSmartByteBuffer.swift' = {
-            isa = PBXFileReference;
-            lastKnownFileType = sourcecode.swift;
-            name = 'CWSmartByteBuffer.swift';
-            sourceTree = '<group>';
-        };
-        '__PBXFileRef_Sources/CWSocketsServer/CWSocket.swift' = {
-            isa = PBXFileReference;
-            lastKnownFileType = sourcecode.swift;
-            name = 'CWSocket.swift';
-            sourceTree = '<group>';
-        };
-        '__PBXFileRef_Sources/CWSocketsServer/CWSocketClient.swift' = {
-            isa = PBXFileReference;
-            lastKnownFileType = sourcecode.swift;
-            name = 'CWSocketClient.swift';
-            sourceTree = '<group>';
-        };
-        '__PBXFileRef_Sources/CWSocketsServer/CWSocketServer.swift' = {
-            isa = PBXFileReference;
-            lastKnownFileType = sourcecode.swift;
-            name = 'CWSocketServer.swift';
-            sourceTree = '<group>';
-        };
-        '__PBXFileRef_Sources/CWSocketsServer/POSIXError.swift' = {
-            isa = PBXFileReference;
-            lastKnownFileType = sourcecode.swift;
-            name = 'POSIXError.swift';
-            sourceTree = '<group>';
-        };
-        ______Target_CWSocketsServer = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = _______Confs_CWSocketsServer;
-            buildPhases = (CompilePhase_CWSocketsServer, ___LinkPhase_CWSocketsServer);
-            buildRules = ();
-            dependencies = (__Dependency_CryptoEssentials, __Dependency_C7, __Dependency_SwiftSockets, __Dependency_SHA1, __Dependency_Base64);
-            name = CWSocketsServer;
-            productName = CWSocketsServer;
-            productReference = _____Product_CWSocketsServer;
-            productType = 'com.apple.product-type.framework';
-        };
-        _____Product_CWSocketsServer = {
-            isa = PBXFileReference;
-            explicitFileType = 'wrapper.framework';
-            path = 'CWSocketsServer.framework';
-            sourceTree = BUILT_PRODUCTS_DIR;
-        };
-        CompilePhase_CWSocketsServer = {
-            isa = PBXSourcesBuildPhase;
-            files = ('__src_cc_ref_Sources/CWSocketsServer/ByteBuffer.swift', '__src_cc_ref_Sources/CWSocketsServer/CWConnection.swift', '__src_cc_ref_Sources/CWSocketsServer/CWSmartByteBuffer.swift', '__src_cc_ref_Sources/CWSocketsServer/CWSocket.swift', '__src_cc_ref_Sources/CWSocketsServer/CWSocketClient.swift', '__src_cc_ref_Sources/CWSocketsServer/CWSocketServer.swift', '__src_cc_ref_Sources/CWSocketsServer/POSIXError.swift');
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        '__src_cc_ref_Sources/CWSocketsServer/ByteBuffer.swift' = {
-            isa = PBXBuildFile;
-            fileRef = '__PBXFileRef_Sources/CWSocketsServer/ByteBuffer.swift';
-        };
-        '__src_cc_ref_Sources/CWSocketsServer/CWConnection.swift' = {
-            isa = PBXBuildFile;
-            fileRef = '__PBXFileRef_Sources/CWSocketsServer/CWConnection.swift';
-        };
-        '__src_cc_ref_Sources/CWSocketsServer/CWSmartByteBuffer.swift' = {
-            isa = PBXBuildFile;
-            fileRef = '__PBXFileRef_Sources/CWSocketsServer/CWSmartByteBuffer.swift';
-        };
-        '__src_cc_ref_Sources/CWSocketsServer/CWSocket.swift' = {
-            isa = PBXBuildFile;
-            fileRef = '__PBXFileRef_Sources/CWSocketsServer/CWSocket.swift';
-        };
-        '__src_cc_ref_Sources/CWSocketsServer/CWSocketClient.swift' = {
-            isa = PBXBuildFile;
-            fileRef = '__PBXFileRef_Sources/CWSocketsServer/CWSocketClient.swift';
-        };
-        '__src_cc_ref_Sources/CWSocketsServer/CWSocketServer.swift' = {
-            isa = PBXBuildFile;
-            fileRef = '__PBXFileRef_Sources/CWSocketsServer/CWSocketServer.swift';
-        };
-        '__src_cc_ref_Sources/CWSocketsServer/POSIXError.swift' = {
-            isa = PBXBuildFile;
-            fileRef = '__PBXFileRef_Sources/CWSocketsServer/POSIXError.swift';
-        };
-        ___LinkPhase_CWSocketsServer = {
-            isa = PBXFrameworksBuildPhase;
-            files = (_LinkFileRef_CryptoEssentials_via_CWSocketsServer, _LinkFileRef_C7_via_CWSocketsServer, _LinkFileRef_SwiftSockets_via_CWSocketsServer, _LinkFileRef_SHA1_via_CWSocketsServer, _LinkFileRef_Base64_via_CWSocketsServer);
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        _LinkFileRef_CryptoEssentials_via_CWSocketsServer = {
-            isa = PBXBuildFile;
-            fileRef = _____Product_CryptoEssentials;
-        };
-        _LinkFileRef_C7_via_CWSocketsServer = {
-            isa = PBXBuildFile;
-            fileRef = _____Product_C7;
-        };
-        _LinkFileRef_SwiftSockets_via_CWSocketsServer = {
-            isa = PBXBuildFile;
-            fileRef = _____Product_SwiftSockets;
-        };
-        _LinkFileRef_SHA1_via_CWSocketsServer = {
-            isa = PBXBuildFile;
-            fileRef = _____Product_SHA1;
-        };
-        _LinkFileRef_Base64_via_CWSocketsServer = {
-            isa = PBXBuildFile;
-            fileRef = _____Product_Base64;
-        };
-        _______Confs_CWSocketsServer = {
-            isa = XCConfigurationList;
-            buildConfigurations = (___DebugConf_CWSocketsServer, _ReleaseConf_CWSocketsServer);
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Debug;
-        };
-        ___DebugConf_CWSocketsServer = {
-            isa = XCBuildConfiguration;
-            buildSettings = { LD_RUNPATH_SEARCH_PATHS = '$(TOOLCHAIN_DIR)/usr/lib/swift/macosx'; PRODUCT_MODULE_NAME = '$(TARGET_NAME:c99extidentifier)'; ENABLE_TESTABILITY = 'YES'; OTHER_SWIFT_FLAGS = '$(inherited)'; INFOPLIST_FILE = 'ws.xcodeproj/CWSocketsServer_Info.plist'; FRAMEWORK_SEARCH_PATHS = '$(PLATFORM_DIR)/Developer/Library/Frameworks'; SWIFT_OPTIMIZATION_LEVEL = '-Onone'; OTHER_LDFLAGS = '$(inherited)'; PRODUCT_NAME = '$(TARGET_NAME:c99extidentifier)'; };
-            name = Debug;
-        };
-        _ReleaseConf_CWSocketsServer = {
-            isa = XCBuildConfiguration;
-            buildSettings = { LD_RUNPATH_SEARCH_PATHS = '$(TOOLCHAIN_DIR)/usr/lib/swift/macosx'; PRODUCT_MODULE_NAME = '$(TARGET_NAME:c99extidentifier)'; ENABLE_TESTABILITY = 'YES'; OTHER_SWIFT_FLAGS = '$(inherited)'; INFOPLIST_FILE = 'ws.xcodeproj/CWSocketsServer_Info.plist'; FRAMEWORK_SEARCH_PATHS = '$(PLATFORM_DIR)/Developer/Library/Frameworks'; OTHER_LDFLAGS = '$(inherited)'; PRODUCT_NAME = '$(TARGET_NAME:c99extidentifier)'; };
-            name = Release;
-        };
-        __Dependency_CWSocketsServer = {
-            isa = PBXTargetDependency;
-            target = ______Target_CWSocketsServer;
-        };
         _______Group_swift_ws = {
             isa = PBXGroup;
             name = swift-ws;
             path = 'Sources/swift-ws';
             sourceTree = '<group>';
-            children = ('__PBXFileRef_Sources/swift-ws/main.swift', '__PBXFileRef_Sources/swift-ws/WebSocketFrame.swift', '__PBXFileRef_Sources/swift-ws/WebSocketServer.swift');
+            children = ('__PBXFileRef_Sources/swift-ws/HTTPMethod.swift', '__PBXFileRef_Sources/swift-ws/HTTPStatus.swift', '__PBXFileRef_Sources/swift-ws/main.swift', '__PBXFileRef_Sources/swift-ws/Request.swift', '__PBXFileRef_Sources/swift-ws/Response.swift', '__PBXFileRef_Sources/swift-ws/SocketServer.swift', '__PBXFileRef_Sources/swift-ws/SwiftSocket.swift', '__PBXFileRef_Sources/swift-ws/WebSocketFrame.swift', '__PBXFileRef_Sources/swift-ws/WebSocketServer.swift');
+        };
+        '__PBXFileRef_Sources/swift-ws/HTTPMethod.swift' = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.swift;
+            name = 'HTTPMethod.swift';
+            sourceTree = '<group>';
+        };
+        '__PBXFileRef_Sources/swift-ws/HTTPStatus.swift' = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.swift;
+            name = 'HTTPStatus.swift';
+            sourceTree = '<group>';
         };
         '__PBXFileRef_Sources/swift-ws/main.swift' = {
             isa = PBXFileReference;
             lastKnownFileType = sourcecode.swift;
             name = 'main.swift';
+            sourceTree = '<group>';
+        };
+        '__PBXFileRef_Sources/swift-ws/Request.swift' = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.swift;
+            name = 'Request.swift';
+            sourceTree = '<group>';
+        };
+        '__PBXFileRef_Sources/swift-ws/Response.swift' = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.swift;
+            name = 'Response.swift';
+            sourceTree = '<group>';
+        };
+        '__PBXFileRef_Sources/swift-ws/SocketServer.swift' = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.swift;
+            name = 'SocketServer.swift';
+            sourceTree = '<group>';
+        };
+        '__PBXFileRef_Sources/swift-ws/SwiftSocket.swift' = {
+            isa = PBXFileReference;
+            lastKnownFileType = sourcecode.swift;
+            name = 'SwiftSocket.swift';
             sourceTree = '<group>';
         };
         '__PBXFileRef_Sources/swift-ws/WebSocketFrame.swift' = {
@@ -1174,7 +1059,7 @@
             buildConfigurationList = _______Confs_swift_ws;
             buildPhases = (CompilePhase_swift_ws, ___LinkPhase_swift_ws);
             buildRules = ();
-            dependencies = (__Dependency_CryptoEssentials, __Dependency_C7, __Dependency_SwiftSockets, __Dependency_SHA1, __Dependency_Base64, __Dependency_Adler, __Dependency_TwoHundredHelpers, __Dependency_CWSocketsServer);
+            dependencies = (__Dependency_CryptoEssentials, __Dependency_C7, __Dependency_SwiftSockets, __Dependency_SHA1, __Dependency_Base64, __Dependency_Adler, __Dependency_TwoHundredHelpers);
             name = swift-ws;
             productName = swift_ws;
             productReference = _____Product_swift_ws;
@@ -1188,12 +1073,36 @@
         };
         CompilePhase_swift_ws = {
             isa = PBXSourcesBuildPhase;
-            files = ('__src_cc_ref_Sources/swift-ws/main.swift', '__src_cc_ref_Sources/swift-ws/WebSocketFrame.swift', '__src_cc_ref_Sources/swift-ws/WebSocketServer.swift');
+            files = ('__src_cc_ref_Sources/swift-ws/HTTPMethod.swift', '__src_cc_ref_Sources/swift-ws/HTTPStatus.swift', '__src_cc_ref_Sources/swift-ws/main.swift', '__src_cc_ref_Sources/swift-ws/Request.swift', '__src_cc_ref_Sources/swift-ws/Response.swift', '__src_cc_ref_Sources/swift-ws/SocketServer.swift', '__src_cc_ref_Sources/swift-ws/SwiftSocket.swift', '__src_cc_ref_Sources/swift-ws/WebSocketFrame.swift', '__src_cc_ref_Sources/swift-ws/WebSocketServer.swift');
             runOnlyForDeploymentPostprocessing = 0;
+        };
+        '__src_cc_ref_Sources/swift-ws/HTTPMethod.swift' = {
+            isa = PBXBuildFile;
+            fileRef = '__PBXFileRef_Sources/swift-ws/HTTPMethod.swift';
+        };
+        '__src_cc_ref_Sources/swift-ws/HTTPStatus.swift' = {
+            isa = PBXBuildFile;
+            fileRef = '__PBXFileRef_Sources/swift-ws/HTTPStatus.swift';
         };
         '__src_cc_ref_Sources/swift-ws/main.swift' = {
             isa = PBXBuildFile;
             fileRef = '__PBXFileRef_Sources/swift-ws/main.swift';
+        };
+        '__src_cc_ref_Sources/swift-ws/Request.swift' = {
+            isa = PBXBuildFile;
+            fileRef = '__PBXFileRef_Sources/swift-ws/Request.swift';
+        };
+        '__src_cc_ref_Sources/swift-ws/Response.swift' = {
+            isa = PBXBuildFile;
+            fileRef = '__PBXFileRef_Sources/swift-ws/Response.swift';
+        };
+        '__src_cc_ref_Sources/swift-ws/SocketServer.swift' = {
+            isa = PBXBuildFile;
+            fileRef = '__PBXFileRef_Sources/swift-ws/SocketServer.swift';
+        };
+        '__src_cc_ref_Sources/swift-ws/SwiftSocket.swift' = {
+            isa = PBXBuildFile;
+            fileRef = '__PBXFileRef_Sources/swift-ws/SwiftSocket.swift';
         };
         '__src_cc_ref_Sources/swift-ws/WebSocketFrame.swift' = {
             isa = PBXBuildFile;
@@ -1205,7 +1114,7 @@
         };
         ___LinkPhase_swift_ws = {
             isa = PBXFrameworksBuildPhase;
-            files = (_LinkFileRef_CryptoEssentials_via_swift_ws, _LinkFileRef_C7_via_swift_ws, _LinkFileRef_SwiftSockets_via_swift_ws, _LinkFileRef_SHA1_via_swift_ws, _LinkFileRef_Base64_via_swift_ws, _LinkFileRef_Adler_via_swift_ws, _LinkFileRef_TwoHundredHelpers_via_swift_ws, _LinkFileRef_CWSocketsServer_via_swift_ws);
+            files = (_LinkFileRef_CryptoEssentials_via_swift_ws, _LinkFileRef_C7_via_swift_ws, _LinkFileRef_SwiftSockets_via_swift_ws, _LinkFileRef_SHA1_via_swift_ws, _LinkFileRef_Base64_via_swift_ws, _LinkFileRef_Adler_via_swift_ws, _LinkFileRef_TwoHundredHelpers_via_swift_ws);
             runOnlyForDeploymentPostprocessing = 0;
         };
         _LinkFileRef_CryptoEssentials_via_swift_ws = {
@@ -1235,10 +1144,6 @@
         _LinkFileRef_TwoHundredHelpers_via_swift_ws = {
             isa = PBXBuildFile;
             fileRef = _____Product_TwoHundredHelpers;
-        };
-        _LinkFileRef_CWSocketsServer_via_swift_ws = {
-            isa = PBXBuildFile;
-            fileRef = _____Product_CWSocketsServer;
         };
         _______Confs_swift_ws = {
             isa = XCConfigurationList;
@@ -1430,7 +1335,7 @@
         };
         _____Sources_ = {
             isa = PBXGroup;
-            children = (_______Group_C7, _______Group_Base64, _______Group_CryptoEssentials, _______Group_SHA1, _______Group_SwiftSockets, _______Group_SwiftyEchoDaemon, _______Group_Adler, _______Group_CWSocketsServer, _______Group_swift_ws, _______Group_TwoHundredHelpers);
+            children = (_______Group_C7, _______Group_Base64, _______Group_CryptoEssentials, _______Group_SHA1, _______Group_SwiftSockets, _______Group_SwiftyEchoDaemon, _______Group_Adler, _______Group_swift_ws, _______Group_TwoHundredHelpers);
             name = Sources;
             sourceTree = '<group>';
         };
@@ -1442,7 +1347,7 @@
         };
         ____Products_ = {
             isa = PBXGroup;
-            children = (_____Product_C7, _____Product_Base64, _____Product_CryptoEssentials, _____Product_SHA1, _____Product_SwiftSockets, _____Product_SwiftyEchoDaemon, _____Product_Adler, _____Product_CWSocketsServer, _____Product_swift_ws, _____Product_TwoHundredHelpers);
+            children = (_____Product_C7, _____Product_Base64, _____Product_CryptoEssentials, _____Product_SHA1, _____Product_SwiftSockets, _____Product_SwiftyEchoDaemon, _____Product_Adler, _____Product_swift_ws, _____Product_TwoHundredHelpers);
             name = Products;
             sourceTree = '<group>';
         };

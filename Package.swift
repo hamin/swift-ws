@@ -19,7 +19,6 @@ let package = Package(
             dependencies: [
                 .Target(name: "Adler"),
                 .Target(name: "TwoHundredHelpers"),
-                .Target(name: "CWSocketsServer"),
             ])
 
     ]
