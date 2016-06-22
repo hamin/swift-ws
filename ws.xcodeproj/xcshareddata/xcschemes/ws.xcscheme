@@ -41,6 +41,24 @@
       <BuildActionEntry buildForTesting = "YES" buildForRunning = "YES" buildForProfiling = "YES" buildForArchiving = "YES" buildForAnalyzing = "YES">
         <BuildableReference
           BuildableIdentifier = "primary"
+          BlueprintIdentifier = "______Target_SwiftSockets"
+          BuildableName = "SwiftSockets.framework"
+          BlueprintName = "SwiftSockets"
+          ReferencedContainer = "container:ws.xcodeproj">
+        </BuildableReference>
+      </BuildActionEntry>
+      <BuildActionEntry buildForTesting = "YES" buildForRunning = "YES" buildForProfiling = "YES" buildForArchiving = "YES" buildForAnalyzing = "YES">
+        <BuildableReference
+          BuildableIdentifier = "primary"
+          BlueprintIdentifier = "______Target_SwiftyEchoDaemon"
+          BuildableName = "SwiftyEchoDaemon"
+          BlueprintName = "SwiftyEchoDaemon"
+          ReferencedContainer = "container:ws.xcodeproj">
+        </BuildableReference>
+      </BuildActionEntry>
+      <BuildActionEntry buildForTesting = "YES" buildForRunning = "YES" buildForProfiling = "YES" buildForArchiving = "YES" buildForAnalyzing = "YES">
+        <BuildableReference
+          BuildableIdentifier = "primary"
           BlueprintIdentifier = "______Target_Adler"
           BuildableName = "Adler.framework"
           BlueprintName = "Adler"

@@ -1,6 +1,8 @@
 import Foundation
 import CWSocketsServer
 import TwoHundredHelpers
+import CryptoEssentials
+import SHA1
 
 #if os(Linux)
     import Glibc
@@ -8,8 +10,33 @@ import TwoHundredHelpers
     import Darwin.C
 #endif
 
+
+internal extension RequestHeader {
+    internal var isWebSocket: Bool {
+        if let connection = self.headers["Connection"], upgrade = self.headers["Upgrade"], version = self.headers["Sec-WebSocket-Version"], _ = self.headers["Sec-WebSocket-Key"]
+            where connection.lowercased() == "upgrade" && upgrade.lowercased() == "websocket" && version == "13" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    internal func websocketHandhsakeUpgradeReponse() -> HTTPResponse {
+        let resp = HTTPResponse(.Ok)
+        resp.headers.append( HTTPHeader("Upgrade", "websocket") )
+        resp.headers.append( HTTPHeader("Connection", "Upgrade") )
+        
+        let acceptKey = self.headers["Sec-WebSocket-Key"]!
+        let hashedString = SHA1.calculate("\(acceptKey)258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
+        //	    let encodedKey = Base64.encodeString(bytes: SHA1.bytes(string: "\(acceptKey)258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))
+        let encodedKey = Base64.encode(hashedString)
+        resp.headers.append( HTTPHeader("Sec-WebSocket-Accept", "\(encodedKey)") )
+        return resp
+    }
+}
+
 public class WebSocketServer: CWServerDelegate {
-	var socketServer: CWSocketServer?
+    var socketServer: CWSocketServer?
     var websocketConnections: [CWServerConnection] = []
 
     init(port:Int = 8080) {
@@ -18,47 +45,47 @@ public class WebSocketServer: CWServerDelegate {
     }
 
     public func startWS(){
-    	do {
-			try self.socketServer!.start()
-			}
-		catch {
-			print(error)
-		}
+        do {
+            try self.socketServer!.start()
+        }
+        catch {
+            print(error)
+        }
     }
 
     // MARK: - CWServerDelegate
     public func connected(connection: CWServerConnection){
-    	print("CONNECTED: \(connection)")
+        print("CONNECTED: \(connection)")
     }
     public func disconnected(connection: CWServerConnection){
-    	print("DISCONNECTED: \(connection)")
+        print("DISCONNECTED: \(connection)")
         // TODO need to remove object, needs CWServerConnection needs to conform to either Equatable/Hashable
     }
     public func hasData(connection: CWServerConnection){
-    	print("hasData: \(connection)")
+        print("hasData: \(connection)")
 
-    	let data: NSMutableData = NSMutableData()
-    	connection.readData(data: data)
+        let data: NSMutableData = NSMutableData()
+        connection.readData(data: data)
 
-    	if let datastring = NSString(data: data, encoding:NSUTF8StringEncoding),
-    	   	let requestHeader = RequestHeader(data:datastring as String){
-    	   	if requestHeader.isWebSocket {
-    			print("requestheaders: \(requestHeader.headers)")
+        if let datastring = NSString(data: data, encoding:NSUTF8StringEncoding),
+            let requestHeader = RequestHeader(data:datastring as String){
+            if requestHeader.isWebSocket {
+                print("requestheaders: \(requestHeader.headers)")
 
-    			do {
-	    			let resp = requestHeader.websocketHandhsakeUpgradeReponse()
-					let hsSockData = resp.handshakeUpgradeMakeSocketData()
-					let hsSockString = hsSockData.stringValue()
-    				try connection.write(st: hsSockString!)
+                do {
+                    let resp = requestHeader.websocketHandhsakeUpgradeReponse()
+                    let hsSockData = resp.handshakeUpgradeMakeSocketData()
+                    let hsSockString = hsSockData.stringValue()
+                    try connection.write(st: hsSockString!)
                     websocketConnections.append(connection)
-    			}
-    			catch {
-    				print("Failed to make HandShake")
-    			}
-    		}else{
-    			print("Request is not websocket: \(requestHeader)")
-    		}
-    	} else{
+                }
+                catch {
+                    print("Failed to make HandShake")
+                }
+            }else{
+                print("Request is not websocket: \(requestHeader)")
+            }
+        } else{
             let count = data.length / sizeof(UInt8)
             var dataArray = [UInt8](repeating:0, count: count)
             // copy bytes into array
@@ -117,7 +144,7 @@ public class WebSocketServer: CWServerDelegate {
                 }
 
 
-//                let str = String.fromBytes(bytes: _textFramePayload)
+                //                let str = String.fromBytes(bytes: _textFramePayload)
                 let str = String(bytes: _textFramePayload, encoding: NSUTF8StringEncoding)
                 let textFrame = WebSocketFrame(opCode: .Text, data: Array(str!.utf8))
                 let frameData = textFrame.getData()
@@ -159,9 +186,9 @@ public class WebSocketServer: CWServerDelegate {
             default:
                 print("*** WE HAVE SOM OTHER FRAME ***")
             }
-    	}
+        }
     }
     public func stopped(server: CWSocketServer){
-    	print("stopped: \(server)")
+        print("stopped: \(server)")
     }
 }

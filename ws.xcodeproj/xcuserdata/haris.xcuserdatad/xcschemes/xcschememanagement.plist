@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>swift-ws.xcscheme</key>
+		<key>SwiftyEchoDaemon.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>swift-ws.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>ws.xcscheme_^#shared#^_</key>
 		<dict>
@@ -43,6 +48,16 @@
 			<true/>
 		</dict>
 		<key>______Target_SHA1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>______Target_SwiftSockets</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>______Target_SwiftyEchoDaemon</key>
 		<dict>
 			<key>primary</key>
 			<true/>
